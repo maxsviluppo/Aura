@@ -6,11 +6,18 @@
   </div>
 
   @if (showNav) {
-    <nav [class]="store.activeProfile() ? 'w-14 h-14 rounded-full justify-center bg-slate-800' : 'w-[calc(100%-2rem)] h-20 rounded-[2rem] justify-around bg-slate-900/80'"
-         class="absolute bottom-6 left-4 transition-all duration-500 ease-in-out backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50 z-50 flex items-center overflow-hidden">
+    <!-- 
+      Dynamic Classes for Navigation:
+      - Active Profile (Ball): top-10 (40px) left-[50px] (50px), 48px size, semi-transparent black background.
+      - Inactive (Bar): bottom-6 left-4, full width minus margins, slate background.
+    -->
+    <nav [class]="store.activeProfile() 
+           ? 'top-10 left-[50px] w-12 h-12 rounded-full justify-center bg-black/40 border-white/20 backdrop-blur-md' 
+           : 'bottom-6 left-4 w-[calc(100%-2rem)] h-20 rounded-[2rem] justify-around bg-slate-900/80 border-white/10 backdrop-blur-xl'"
+         class="absolute transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] border shadow-2xl shadow-black/50 z-50 flex items-center overflow-hidden">
       
-      <!-- Normal Menu Content -->
-      <div [class.opacity-0]="store.activeProfile()" [class.pointer-events-none]="store.activeProfile()" class="flex justify-around w-full transition-opacity duration-300 absolute inset-0 items-center px-2">
+      <!-- Normal Menu Content (Hidden when active) -->
+      <div [class.opacity-0]="store.activeProfile()" [class.pointer-events-none]="store.activeProfile()" class="flex justify-around w-full transition-opacity duration-200 absolute inset-0 items-center px-2">
         <a routerLink="/home" routerLinkActive="text-pink-500 bg-white/5" [routerLinkActiveOptions]="{exact: true}" class="flex flex-col items-center justify-center w-16 h-16 rounded-2xl text-slate-400 transition-all duration-300 hover:text-pink-400 hover:bg-white/5">
           <span class="material-symbols-rounded text-2xl mb-1">style</span>
           <span class="text-[10px] font-bold">Scopri</span>
@@ -30,9 +37,9 @@
         </a>
       </div>
 
-      <!-- Minimized Ball Content (Back/Close) -->
-      <div [class.opacity-0]="!store.activeProfile()" [class.pointer-events-none]="!store.activeProfile()" class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 delay-100">
-         <button (click)="store.activeProfile.set(null)" class="w-full h-full flex items-center justify-center text-white hover:text-pink-500 transition-colors">
+      <!-- Minimized Ball Content (Back Arrow) - Visible when active -->
+      <div [class.opacity-0]="!store.activeProfile()" [class.pointer-events-none]="!store.activeProfile()" class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 delay-200">
+         <button (click)="store.activeProfile.set(null)" class="w-full h-full flex items-center justify-center text-white hover:text-pink-400 transition-colors">
             <span class="material-symbols-rounded text-2xl">arrow_back</span>
          </button>
       </div>
