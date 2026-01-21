@@ -1,0 +1,42 @@
+
+<div class="app-container relative">
+  
+  <div class="h-full w-full overflow-hidden relative">
+    <router-outlet></router-outlet>
+  </div>
+
+  @if (showNav) {
+    <nav [class]="store.activeProfile() ? 'w-14 h-14 rounded-full justify-center bg-slate-800' : 'w-[calc(100%-2rem)] h-20 rounded-[2rem] justify-around bg-slate-900/80'"
+         class="absolute bottom-6 left-4 transition-all duration-500 ease-in-out backdrop-blur-xl border border-white/10 shadow-2xl shadow-black/50 z-50 flex items-center overflow-hidden">
+      
+      <!-- Normal Menu Content -->
+      <div [class.opacity-0]="store.activeProfile()" [class.pointer-events-none]="store.activeProfile()" class="flex justify-around w-full transition-opacity duration-300 absolute inset-0 items-center px-2">
+        <a routerLink="/home" routerLinkActive="text-pink-500 bg-white/5" [routerLinkActiveOptions]="{exact: true}" class="flex flex-col items-center justify-center w-16 h-16 rounded-2xl text-slate-400 transition-all duration-300 hover:text-pink-400 hover:bg-white/5">
+          <span class="material-symbols-rounded text-2xl mb-1">style</span>
+          <span class="text-[10px] font-bold">Scopri</span>
+        </a>
+        
+        <a routerLink="/matches" routerLinkActive="text-pink-500 bg-white/5" class="flex flex-col items-center justify-center w-16 h-16 rounded-2xl text-slate-400 transition-all duration-300 hover:text-pink-400 hover:bg-white/5 relative">
+          <span class="material-symbols-rounded text-2xl mb-1">forum</span>
+          <span class="text-[10px] font-bold">Chat</span>
+          @if (store.matches().length > 0) {
+             <span class="absolute top-3 right-3 w-2.5 h-2.5 bg-pink-500 rounded-full border-2 border-slate-900"></span>
+          }
+        </a>
+
+        <a routerLink="/profile" routerLinkActive="text-pink-500 bg-white/5" class="flex flex-col items-center justify-center w-16 h-16 rounded-2xl text-slate-400 transition-all duration-300 hover:text-pink-400 hover:bg-white/5">
+          <span class="material-symbols-rounded text-2xl mb-1">person</span>
+          <span class="text-[10px] font-bold">Profilo</span>
+        </a>
+      </div>
+
+      <!-- Minimized Ball Content (Back/Close) -->
+      <div [class.opacity-0]="!store.activeProfile()" [class.pointer-events-none]="!store.activeProfile()" class="absolute inset-0 flex items-center justify-center transition-opacity duration-300 delay-100">
+         <button (click)="store.activeProfile.set(null)" class="w-full h-full flex items-center justify-center text-white hover:text-pink-500 transition-colors">
+            <span class="material-symbols-rounded text-2xl">arrow_back</span>
+         </button>
+      </div>
+
+    </nav>
+  }
+</div>

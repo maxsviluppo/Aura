@@ -1,0 +1,7 @@
+{
+  "name": "Aura - AI Dating",
+  "description": "Next-gen dating app featuring AI compatibility matching, real-time chat moderation, and identity verification.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
